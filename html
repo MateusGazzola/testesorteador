@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sorteador Avançado de Números</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.12);
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input[type="number"] {
+      width: 90px;
+      padding: 10px;
+      margin: 8px 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+    }
+    label {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+      user-select: none;
+      color: #555;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 18px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .resultado {
+      margin-top: 25px;
+      font-size: 20px;
+      color: #333;
+      min-height: 40px;
+      word-wrap: break-word;
+    }
+    .erro {
+      color: #d93025;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    #btnCopiar {
+      display: none;
+      margin-top: 10px;
+      background-color: #28a745;
+      border: none;
+      padding: 8px 16px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+    #btnCopiar:hover {
+      background-color: #1e7e34;
+    }
+    #copiadoMsg {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #28a745;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sorteador Avançado de Números</h1>
+    <div>
+      <input type="number" id="min" placeholder="Mínimo" />
+      <input type="number" id="max" placeholder="Máximo" />
+    </div>
+    <div>
+      <input type="number" id="quantidade" placeholder="Quantidade" />
+    </div>
+    <label>
+      <input type="checkbox" id="repetir" />
+      Permitir repetição
+    </label>
+    <button onclick="sortear()">Sortear</button>
+    <div class="resultado" id="resultado"></div>
+    <button id="btnCopiar" onclick="copiarResultado()">Copiar Resultado</button>
+    <div id="copiadoMsg">Resultado copiado!</div>
+    <div class="erro" id="erro"></div>
+  </div>
+
+  <script>
+    function sortear() {
+      const minInput = document.getElementById('min').value;
+      const maxInput = document.getElementById('max').value;
+      const quantidadeInput = document.getElementById('quantidade').value;
+      const permitirRepetir = document.getElementById('repetir').checked;
+      const resultado = document.getElementById('resultado');
+      const erro = document.getElementById('erro');
+      const btnCopiar = document.getElementById('btnCopiar');
+      const copiadoMsg = document.getElementById('copiadoMsg');
+
+      resultado.textContent = '';
+      erro.textContent = '';
+      copiadoMsg.style.display = 'none';
+      btnCopiar.style.display = 'none';
+
+      const min = parseInt(minInput, 10);
+      const max = parseInt(maxInput, 10);
+      const quantidade = parseInt(quantidadeInput, 10);
+
+      if (isNaN(min) || isNaN(max) || isNaN(quantidade)) {
+        erro.textContent = 'Por favor, preencha todos os campos com números válidos.';
+        return;
+      }
+      if (min > max) {
+        erro.textContent = 'O valor mínimo deve ser menor ou igual ao máximo.';
+        return;
+      }
+      if (quantidade < 1) {
+        erro.textContent = 'A quantidade deve ser pelo menos 1.';
+        return;
+      }
+      
+      const totalNumeros = max - min + 1;
+
+      if (!permitirRepetir && quantidade > totalNumeros) {
+        erro.textContent = 'A quantidade não pode ser maior que o intervalo disponível quando não permite repetição.';
+        return;
+      }
+
+      let numerosSorteados = [];
+
+      if (permitirRepetir) {
+        // Permite repetição
+        for (let i = 0; i < quantidade; i++) {
+          const num = Math.floor(Math.random() * totalNumeros) + min;
+          numerosSorteados.push(num);
+        }
+      } else {
+        // Não permite repetição - sorteia números únicos
+        const numerosDisponiveis = [];
+        for (let i = min; i <= max; i++) {
+          numerosDisponiveis.push(i);
+        }
+        for (let i = 0; i < quantidade; i++) {
+          const indice = Math.floor(Math.random() * numerosDisponiveis.length);
+          numerosSorteados.push(numerosDisponiveis[indice]);
+          numerosDisponiveis.splice(indice, 1); // remove para evitar repetição
+        }
+      }
+
+      resultado.textContent = `Números sorteados: ${numerosSorteados.join(', ')}`;
+      btnCopiar.style.display = 'inline-block';
+    }
+
+    function copiarResultado() {
+      const resultado = document.getElementById('resultado').textContent;
+      const copiadoMsg = document.getElementById('copiadoMsg');
+
+      if (!resultado) return;
+
+      navigator.clipboard.writeText(resultado).then(() => {
+        copiadoMsg.style.display = 'block';
+        setTimeout(() => {
+          copiadoMsg.style.display = 'none';
+        }, 2000);
+      }).catch(() => {
+        alert('Não foi possível copiar o resultado.');
+      });
+    }
+  </script>
+</body>
+</html>
