@@ -1,100 +1,124 @@
+:root {
+  --cor-primaria: #4a90e2;
+  --cor-primaria-hover: #357ab8;
+  --cor-sucesso: #28a745;
+  --cor-erro: #d93025;
+  --cor-fundo: #f0f2f5;
+  --cor-texto: #333;
+  --borda: #ddd;
+  --sombra: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --raio: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f7f7f7;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--cor-fundo);
+  margin: 0;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
+  min-height: 100vh;
 }
 
 .container {
-  background: white;
-  padding: 30px 40px;
-  border-radius: 10px;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.12);
-  max-width: 380px;
+  background: #fff;
+  padding: 30px;
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
   width: 100%;
+  max-width: 420px;
   text-align: center;
 }
 
 h1 {
   margin-bottom: 20px;
-  color: #333;
+  color: var(--cor-texto);
+  font-size: 1.5rem;
 }
 
 input[type="number"] {
-  width: 90px;
+  width: calc(50% - 12px);
   padding: 10px;
-  margin: 8px 5px;
+  margin: 8px 6px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  transition: border 0.3s ease;
+}
+
+input[type="number"]:focus {
+  border-color: var(--cor-primaria);
+  outline: none;
 }
 
 label {
-  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 10px;
-  cursor: pointer;
-  user-select: none;
+  margin-top: 12px;
   color: #555;
+  font-size: 14px;
 }
 
 button {
   margin-top: 20px;
-  padding: 12px 25px;
-  font-size: 18px;
-  background-color: #007bff;
-  border: none;
-  border-radius: 6px;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: var(--cor-primaria);
   color: white;
+  border: none;
+  border-radius: var(--raio);
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: var(--cor-primaria-hover);
 }
 
 .resultado {
   margin-top: 25px;
-  font-size: 20px;
-  color: #333;
+  font-size: 18px;
+  color: var(--cor-texto);
   min-height: 40px;
   word-wrap: break-word;
+  padding: 10px;
+  border-radius: var(--raio);
+  background: #f8f9fa;
 }
 
 .erro {
-  color: #d93025;
+  color: var(--cor-erro);
   margin-top: 15px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 #btnCopiar {
   display: none;
   margin-top: 10px;
-  background-color: #28a745;
+  background-color: var(--cor-sucesso);
   border: none;
-  padding: 8px 16px;
+  padding: 10px 20px;
   color: white;
-  border-radius: 5px;
+  border-radius: var(--raio);
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s ease;
 }
 
 #btnCopiar:hover {
-  background-color: #1e7e34;
+  background-color: #218838;
 }
 
 #copiadoMsg {
   margin-top: 10px;
   font-size: 14px;
-  color: #28a745;
+  color: var(--cor-sucesso);
   display: none;
 }
