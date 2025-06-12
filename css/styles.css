@@ -3,9 +3,9 @@
     --cor-primaria-hover: #357ab8;
     --cor-sucesso: #28a745;
     --cor-erro: #d93025;
-    --cor-fundo: #f0f2f5;
+    --cor-fundo: #dbe8fd;
     --cor-texto: #333;
-    --borda: #ddd;
+    --borda: #020202;
     --sombra: 0 4px 20px rgba(0, 0, 0, 0.1);
     --raio: 10px;
 }
@@ -28,12 +28,12 @@ body {
 }
 
 .container {
-    background: #fff;
+    background: #d4ffd6;
     padding: 30px;
     border-radius: var(--raio);
     box-shadow: var(--sombra);
     width: 100%;
-    max-width: 420px;
+    max-width: 600px;
     text-align: center;
 }
 
@@ -73,7 +73,7 @@ button {
     padding: 12px 24px;
     font-size: 16px;
     background-color: var(--cor-primaria);
-    color: white;
+    color: rgb(226, 247, 187);
     border: none;
     border-radius: var(--raio);
     cursor: pointer;
@@ -92,7 +92,7 @@ button:hover {
     word-wrap: break-word;
     padding: 10px;
     border-radius: var(--raio);
-    background: #f8f9fa;
+    background: #c0f7cc;
 }
 
 .erro {
@@ -125,15 +125,7 @@ button:hover {
     display: none;
 }
 
-/* NOVO: container para os botões de teste */
-.testes-container {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    width: 100%;
-    max-width: 420px;
-}
+
 
 .testes-container button {
     padding: 10px 20px;
@@ -141,11 +133,23 @@ button:hover {
     border-radius: var(--raio);
     border: none;
     background-color: var(--cor-primaria);
-    color: white;
+    color: rgb(196, 252, 199);
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .testes-container button:hover {
     background-color: var(--cor-primaria-hover);
+}
+
+#testes-resultados {
+    white-space: pre-wrap;
+    background: #b6fab6;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid #b6fab6;
+    max-height: 300px;
+    overflow-y: auto;
+    font-family: monospace;
+    width: 100%;
 }
